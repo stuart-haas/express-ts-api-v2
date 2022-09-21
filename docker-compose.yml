@@ -1,0 +1,46 @@
+version: '3.7'
+services:
+  api:
+    container_name: express_api
+    restart: always
+    stdin_open: false
+    tty: false
+    build: 
+      context: .
+      dockerfile: ./ops/docker/Dockerfile
+    depends_on: 
+      - db
+      - redis
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    env_file: .env
+    ports:
+      - ${PORT}:${PORT}
+  db:
+    container_name: express_db
+    image: postgres:12
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - ${DOCKER_DB_PORT}:${DB_PORT}
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+  redis:
+    container_name: express_redis
+    image: redis:6.2
+    restart: always
+    volumes:
+     - redis_data:/var/lib/redis/data
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    command:
+      - /bin/sh
+      - -c 
+      - redis-server
+volumes:
+  db_data:
+  redis_data:

@@ -1,0 +1,30 @@
+# misc
+.DS_Store
+.vscode
+README.md
+
+# git
+.git
+.gitignore
+
+# gitlab
+.gitlab
+.gitlab-ci.yml
+
+# docker
+Dockerfile*
+docker-compose*
+
+# npm
+node_modules
+.nvmrc
+
+# scripts
+bin
+
+# terraform
+ops/terraform
+
+# secrets
+.env
+.env.example
