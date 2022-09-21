@@ -50,9 +50,8 @@ export class AuthService {
     const { password } = body;
 
     /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    const { token, ...cleanPayload } = body;
     const hashedPassword = await this.hashPassword(password);
-    return await User.create({ ...cleanPayload, password: hashedPassword, roleId: 1 });
+    return await User.create({ ...body, password: hashedPassword, roleId: 1 });
   }
 
   async validate(req: Request, username: string, password: string) {

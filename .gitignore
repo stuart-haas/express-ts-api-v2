@@ -1,23 +1,4 @@
-# Coverage directory used by tools like istanbul
-coverage
-
-# Dependency directories
 node_modules
-
-# dotenv environment variables file
-.env
-
-# Build
 dist
-
-# IDE / Editor
-.idea
-
-# macOS
+.env
 .DS_Store
-
-# images
-*.png
-
-# certificates
-*.pem
