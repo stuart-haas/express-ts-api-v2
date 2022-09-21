@@ -4,7 +4,7 @@ export * from './Middleware';
 export * from './Status';
 export * from './Transform';
 export * from './Message';
-export * from './Role';
+export * from './AuthRole';
 export * from './Validate';
 export * from './Order';
 export * from './Auth';

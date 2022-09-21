@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import {
-  Controller, Post, IController, Middleware, Request, Message, Validate, RequestUser,
+  Controller, Post, IController, Middleware, Request, Message, Validate,
 } from 'core';
 import { injectable } from 'tsyringe';
 import passport from 'passport';
@@ -21,7 +21,7 @@ export default class AuthController implements IController {
   @Post('login')
   @Validate(loginSchema)
   @Middleware(passport.authenticate(AUTH_LOCAL, { session: true }))
-  @Message<RequestUser>((data) => 'You are now logged in')
+  @Message('You are now logged in')
   async login(req: Request) {
     return await this.authService.login(req);
   }
@@ -29,7 +29,7 @@ export default class AuthController implements IController {
   @Post('login/jwt')
   @Validate(loginSchema)
   @Middleware(passport.authenticate(AUTH_LOCAL, { session: false }))
-  @Message<RequestUser>((data) => 'You are now logged in')
+  @Message('You are now logged in')
   async loginJwt(req: Request) {
     return await this.authService.loginJwt(req);
   }

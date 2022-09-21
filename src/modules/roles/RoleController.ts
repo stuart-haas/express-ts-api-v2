@@ -1,48 +1,53 @@
 import {
+  AbstractController,
   Auth,
-  Controller, Delete, Get, IController, Message, Post, Put, Request, Role, Validate,
+  AuthRole,
+  Controller, Delete, Get, IApiController, Message, Post, Put, Request, Validate,
 } from 'core';
 import { AUTH_LOCAL } from 'core/constants';
+import Role from 'models/Role';
 import { injectable } from 'tsyringe';
+import { DefaultDto } from './DefaultDto';
 import { RoleService } from './RoleService';
-import { defaultSchema } from './validation';
 
 @injectable()
 @Controller('roles')
 @Auth(AUTH_LOCAL)
-export default class RoleController implements IController {
-  constructor(private roleService: RoleService) {}
+export default class RoleController extends AbstractController<Role, DefaultDto, DefaultDto> implements Omit<IApiController, 'findAllWithPagination' | 'findById'> {
+  constructor(private roleService: RoleService) {
+    super(Role, { rejectOnEmpty: true });
+  }
 
   @Get()
-  @Role(2)
+  @AuthRole(2)
   async findAll(req: Request) {
     return this.roleService.findAll(req);
   }
 
   @Post()
-  @Role(1)
-  @Validate(defaultSchema)
+  @AuthRole(1)
+  @Validate(DefaultDto)
   @Message(() => 'Role created')
   async create(req: Request) {
     const { body } = req;
-    return await this.roleService.create(body);
+    return await this.repository.create(body);
   }
 
   @Put(':id')
-  @Role(1)
-  @Validate(defaultSchema)
+  @AuthRole(1)
+  @Validate(DefaultDto)
   @Message(() => 'Role updated')
   async updateById(req: Request) {
     const { id } = req.params;
     const { body } = req;
-    return await this.roleService.updateById(+id, body);
+    return await this.repository.updateById(+id, body);
   }
 
   @Delete(':id')
-  @Role(1)
+  @AuthRole(1)
   @Message(() => 'Role deleted')
   async deleteById(req: Request) {
     const { id } = req.params;
-    await this.roleService.deleteById(+id);
+    await this.repository.deleteById(+id);
   }
 }

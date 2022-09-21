@@ -1,5 +1,5 @@
 import {
-  Table, Model, Column, AllowNull, Unique, BelongsToMany, Default, ForeignKey, BelongsTo,
+  Table, Model, Column, AllowNull, Unique, Default, ForeignKey, BelongsTo,
 } from 'sequelize-typescript';
 import Role from './Role';
 

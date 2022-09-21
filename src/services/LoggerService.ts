@@ -1,7 +1,7 @@
 import winston from 'winston';
 import { singleton } from 'tsyringe';
 import {
-  appEnv
+  appEnv,
 } from 'config/app';
 
 @singleton()

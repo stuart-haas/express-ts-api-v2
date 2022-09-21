@@ -1,4 +1,5 @@
 import type { Request as ExpressRequest } from 'express';
+import Session from 'models/Session';
 import { Order, ScopeOptions, WhereOptions } from 'sequelize/types';
 import {
   RequestMetaData, RequestUser, RequestQuery, RequestPagination,
@@ -7,7 +8,7 @@ import {
 export type Request = ExpressRequest & {
   id: string;
   user: RequestUser;
-  session: any;
+  session: Session;
   authScopes: string;
   where: WhereOptions;
   query: RequestQuery;
